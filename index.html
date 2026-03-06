@@ -10,7 +10,44 @@
 
 </head>
 <body>
+  <main>
+  <!-- Login page -->
+  <section class="w-full   md:w-[420px] p-4  mx-auto mt-20  space-y-6">
+    <div class="text-center">
+        <img class="mx-auto py-3.5" src="./assets/github-logo.png" alt="">
+        <h3 class="text-xl font-semibold">GitHub Issues Tracker</h3>
+        <p class="text-xs">Sign in to manage your issues</p>
+    </div>
+    <div >
+ <fieldset class="fieldset rounded-box w-full md:w-xs  p-2 mx-auto">
   
+
+  <label  class="label text-lg">Username</label>
+  <input id="userName" type="text" class="input" placeholder="Enter Username" />
+  <p class="text-xs text-primary">Default:admin</p> 
+
+  <label class="label text-lg">Password</label>
+  <input id="password" type="password" class="input" placeholder=" Enter password" />
+  <p class="text-xs text-primary">Default:admin123</p>
+  <button id="login-btn" class="btn btn-primary mt-4">Login</button>
+</fieldset>
+    </div>
+    <div>
+        <div class="flex w-full flex-col">
+     <div class="divider">OR</div>
+     <p class="text-xs text-center py-3">Demo Credentials:</p>
+     <div class="card bg-base-300 rounded-box grid  h-16 place-items-center">
+         <p class="text-xs "><span class="text-sm font-semibold">Default:</span> admin</p> 
+         <p class="text-xs"><span class="text-sm font-semibold">Default:</span>admin123</p>
+     </div>
+</div>
+    </div>
+
+  </section>
+  
+
+
+  </main>
    
 
 
