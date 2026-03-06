@@ -9,6 +9,7 @@ allBtns.forEach((btn, index) => {
     btn.classList.add("btn-outline");
     btn.classList.remove("btn-primary");
   }
+
 });
 
 allBtns.forEach(btn => {
@@ -20,6 +21,8 @@ allBtns.forEach(btn => {
     btn.classList.remove("btn-outline");
     btn.classList.add("btn-primary");
   });
+ 
+
 });
 
 
@@ -62,17 +65,12 @@ const displayIssue  = (cards) => {
     
 }
 
-
-
-// "id": 9,
-// "title": "Add export to PDF feature",
-// "description": "Users want to export reports and dashboards to PDF format for sharing and printing.",
-// "status": "open",
-// "labels": [
-// "enhancement"
-// ],
-// "priority": "medium",
-// "author": "feature_fred",
-// "assignee": "",
-// "createdAt": "2024-01-16T10:15:00Z",
-// "updatedAt": "2024-01-16T10:15:00Z"
+allBtns.forEach(btn => {
+    btn.addEventListener('click',async function() {
+        const id = this.dataset.id;
+        // console.log(id);
+       const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+      const data = await res.json()
+      console.log(data.data);
+    })
+})
