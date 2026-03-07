@@ -54,10 +54,10 @@ const displayIssue  = (cards) => {
       let img = ""
       if(card.status == "open"){
        textColor = "border-t-4 border-t-green-600" 
-      img = "/assets/Open-Status.png"
+      img = "./assets/Open-Status.png"
     } else if(card.status == "closed"){
       textColor = "border-t-4 border-t-[#AB5DF6]"
-      img =`/assets/Closed-Status.png`
+      img =`./assets/Closed-Status.png`
      
     }
     const cardDiv = document.createElement("div")
@@ -134,8 +134,10 @@ const displayCardDetails = (items) => {
 }
 
 const loadTabissue = async (id) => {
+  showLoading()
 const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
   const res = await fetch(url)
+  hideLoading()
   const fulrespons = await res.json();
   // console.log(fulrespons.data);
  
@@ -162,12 +164,12 @@ document.getElementById("search-btn").addEventListener('click',() => {
   const inputValu = input.value.trim().toLowerCase()
   // console.log(inputValu);
   fetch (`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputValu}`)
+ 
   .then (res => res.json())
   .then (data => {
     const allData = data
     // console.log(allData);
    displayIssue(allData.data)
-    
   })
 })
 
