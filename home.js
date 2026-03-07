@@ -142,7 +142,7 @@ const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
   if(id == "all"){
     displayTabIssue(fulrespons.data)
      totalIssue.innerText= fulrespons.data.length + " Issue"
-     displayCardDetails()
+    //  displayCardDetails()
   }
   else{
     const filterd = fulrespons.data.filter((item) => item.status == id)
@@ -165,7 +165,7 @@ document.getElementById("search-btn").addEventListener('click',() => {
   .then (res => res.json())
   .then (data => {
     const allData = data
-    console.log(allData);
+    // console.log(allData);
    displayIssue(allData.data)
     
   })
