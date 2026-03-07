@@ -35,7 +35,7 @@ allBtns.forEach(btn => {
 
 
 const loadAllIssue = async () => {
-  showLoading()
+    showLoading()
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues'
     const res = await fetch (url)
     const data = await res.json()
@@ -116,7 +116,7 @@ const displayCardDetails = (items) => {
     </div>
     <div>
         <div class="badge badge-soft badge-primary">${items.labels}</div>
-      <div class="badge badge-soft badge-warning">${items.labels[1]}</div>
+      ${items.labels[1] ? ` <div class="badge badge-soft badge-warning">${items.labels[1]}</div>`: ''}
     </div>
     <p>${items.description}</p>
      <div class="bg-gray-100 shadow-xl p-4 flex justify-between rounded-lg">
