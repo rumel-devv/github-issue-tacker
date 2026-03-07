@@ -66,7 +66,7 @@ const displayIssue  = (cards) => {
     cardDiv.innerHTML=`
     <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
         <div class="flex justify-between">
-         <img src="${img}" class="w-3" >
+         <img src="${img}" class="w-4 h-4" >
          <div class="badge badge-soft badge-warning ">${card.priority}</div>
        </div>
            <h2 class="text-lg font-semibold" >${card.title}</h2>
