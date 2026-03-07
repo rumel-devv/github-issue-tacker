@@ -55,7 +55,7 @@ const displayIssue  = (cards) => {
     // console.log(card);
     cardDiv.className="bg-gray-100 p-2 space-y-4 py-4 rounded-sm"
     cardDiv.innerHTML=`
-    <div class="space-y-4">
+    <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
         <div class="flex justify-between">
          <img src="./assets/Open-Status.png" >
          <div class="badge badge-md">${card.priority}</div>
@@ -64,7 +64,7 @@ const displayIssue  = (cards) => {
          <h3 class="text-xs">${card.description}</h3>
          <div>
           <div class="badge badge-soft badge-primary">${card.labels}</div>
-          <div class="badge badge-soft badge-warning">Help Wanted</div>
+          <div class="badge badge-soft badge-warning">${card.labels[1]}</div>
           <hr class="text-gray-300 mt-6">
           <div class="flex flex-row-reverse justify-between items-center">
            <div>
@@ -83,27 +83,42 @@ const displayIssue  = (cards) => {
     
 }
 
-// const btnClick = async (id) =>{
-//  const res = await fetch (`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-//  const data =  await res.json()
-//   displayIssue(data.data);
-// // }
-// const btnClick = async (status) => {
-//  const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-//  const data = await res.json()
+const loadCardDetails = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
+  const res = await fetch(url)
+  const data = await res.json();
+  displayCardDetails(data.data);
+}
 
-//  if(status === "all"){
-//    displayIssue(data.data)
-//  }else{
-//    const filtered = data.data.filter(issue => issue.status === status)
-//    displayIssue(filtered)
-//  }
-// if(status == "all"){
-//   displayIssue(data.data)
-// }
-// else if(status === "open"){
-//   const filtered = data.data.filter(issue => issue.status === status)
-//   displayIssue(filtered)
-//   totalIssue.innerText= filtered.length + " Issue"
-// }
-// }
+
+const displayCardDetails = (items) => {
+  //  console.log(items);
+    const detailsBox = document.getElementById("details-container")
+    console.log(detailsBox);
+    detailsBox.innerHTML=`
+    <h3 class="text-lg font-bold">${items.title}</h3>
+    <div class="flex gap-2">
+       <div class="badge badge-success">${items.status}</div>
+        <p>Owned by ${items.author}</p>
+        <p class="text-xs mt-1.5 text-right ">${new Date(items.createdAt).toLocaleDateString("en-US")}</p>
+    </div>
+    <div>
+        <div class="badge badge-soft badge-primary">${items.labels}</div>
+      <div class="badge badge-soft badge-warning">${items.labels[1]}</div>
+    </div>
+    <p>${items.description}</p>
+     <div class="bg-gray-100 shadow-xl p-4 flex justify-between rounded-lg">
+           <div>
+            <p>Assigne</p>
+            <p>${items.assignee}</p>
+           </div>
+           <div>
+            <p>Priority</p>
+            <div class="badge text-white bg-red-600 ">${items.priority}</div>
+           </div> 
+        </div>  
+    
+    `
+   document.getElementById("my_modal_5").showModal()
+}
+
