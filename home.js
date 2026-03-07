@@ -54,9 +54,11 @@ const displayIssue  = (cards) => {
       let img = ""
       if(card.status == "open"){
        textColor = "border-t-4 border-t-green-600" 
-      //  img = <img src="./assets/Open-Status.png" class="w-3"></img>
-    } if(card.status == "closed"){
-      textColor = "border-t-4 border-t-red-600"
+       img =`/assets/Open-Status.png" class="w-3`
+    } else if(card.status == "closed"){
+      textColor = "border-t-4 border-t-[#AB5DF6]"
+      img =`/assets/Closed-Status.png" class="w-3`
+     
     }
     const cardDiv = document.createElement("div")
     // console.log(card);
@@ -64,14 +66,14 @@ const displayIssue  = (cards) => {
     cardDiv.innerHTML=`
     <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
         <div class="flex justify-between">
-         <img src="./assets/Open-Status.png" >
-         <div class="badge badge-md">${card.priority}</div>
+         <img src="${img}" >
+         <div class="badge badge-soft badge-warning ">${card.priority}</div>
        </div>
            <h2 class="text-lg font-semibold" >${card.title}</h2>
          <h3 class="text-xs">${card.description}</h3>
          <div>
           <div class="badge badge-soft badge-primary">${card.labels}</div>
-          <div class="badge badge-soft badge-warning">${card.labels[1]}</div>
+         ${card.labels[1] ? ` <div class="badge badge-soft badge-warning">${card.labels[1]}</div>`: ''}
           <hr class="text-gray-300 mt-6">
           <div class="flex flex-row-reverse justify-between items-center">
            <div>
@@ -140,6 +142,7 @@ const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
   if(id == "all"){
     displayTabIssue(fulrespons.data)
      totalIssue.innerText= fulrespons.data.length + " Issue"
+     displayCardDetails()
   }
   else{
     const filterd = fulrespons.data.filter((item) => item.status == id)
@@ -151,5 +154,20 @@ const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
 
 
 const  displayTabIssue = async (words) => {
-    //  console.log(words);
+  displayIssue(words)
 }
+
+document.getElementById("search-btn").addEventListener('click',() => {
+  const input = document.getElementById("input-field")
+  const inputValu = input.value.trim().toLowerCase()
+  // console.log(inputValu);
+  fetch (`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputValu}`)
+  .then (res => res.json())
+  .then (data => {
+    const allData = data
+    console.log(allData);
+   displayIssue(allData.data)
+    
+  })
+})
+
