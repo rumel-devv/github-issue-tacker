@@ -50,9 +50,17 @@ const displayIssue  = (cards) => {
     const cardConatiner = document.getElementById("cardDiv" )
     cardConatiner.innerHTML=""
     cards.forEach(card => {
+      let textColor = "" ;
+      let img = ""
+      if(card.status == "open"){
+       textColor = "border-t-4 border-t-green-600" 
+      //  img = <img src="./assets/Open-Status.png" class="w-3"></img>
+    } if(card.status == "closed"){
+      textColor = "border-t-4 border-t-red-600"
+    }
     const cardDiv = document.createElement("div")
     // console.log(card);
-    cardDiv.className="bg-gray-100 p-2 space-y-4 py-4 rounded-sm"
+    cardDiv.className=`bg-gray-100 p-2 space-y-4 py-4 rounded-sm ${textColor}`
     cardDiv.innerHTML=`
     <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
         <div class="flex justify-between">
@@ -78,10 +86,7 @@ const displayIssue  = (cards) => {
      </div>
     `
     cardConatiner.appendChild(cardDiv)
- if(card.status === "open"){
-      card.className=""
-    }
-
+   
     })
    
 }
@@ -128,13 +133,9 @@ const displayCardDetails = (items) => {
 
 const loadTabissue = async (id) => {
 const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
- console.log(url);
   const res = await fetch(url)
   const fulrespons = await res.json();
-  // displayTabIssue(data.data);
-  // console.log(data.data);
-  // const filterd = data.filter()
-  console.log(fulrespons.data);
+  // console.log(fulrespons.data);
  
   if(id == "all"){
     displayTabIssue(fulrespons.data)
@@ -148,8 +149,7 @@ const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
   
 }
 
-// loadTabissue()
 
 const  displayTabIssue = async (words) => {
-     console.log(words);
+    //  console.log(words);
 }
