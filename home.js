@@ -170,6 +170,8 @@ document.getElementById("search-btn").addEventListener('click',() => {
     const allData = data
     // console.log(allData);
    displayIssue(allData.data)
+  //  loadTabissue()
+  totalIssue.innerText = allData.data.length + " Issue"
   })
 })
 
