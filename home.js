@@ -28,7 +28,6 @@ allBtns.forEach(btn => {
     });
     btn.classList.remove("btn-outline");
     btn.classList.add("btn-primary");
-    
   });
   
 
@@ -79,13 +78,19 @@ const displayIssue  = (cards) => {
      </div>
     `
     cardConatiner.appendChild(cardDiv)
+ if(card.status === "open"){
+      card.className=""
+    }
+
     })
-    
+   
 }
 
 const loadCardDetails = async (id) => {
+  showLoading()
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
   const res = await fetch(url)
+  hideLoading()
   const data = await res.json();
   displayCardDetails(data.data);
 }
@@ -94,7 +99,7 @@ const loadCardDetails = async (id) => {
 const displayCardDetails = (items) => {
   //  console.log(items);
     const detailsBox = document.getElementById("details-container")
-    console.log(detailsBox);
+    // console.log(detailsBox);
     detailsBox.innerHTML=`
     <h3 class="text-lg font-bold">${items.title}</h3>
     <div class="flex gap-2">
@@ -117,8 +122,34 @@ const displayCardDetails = (items) => {
             <div class="badge text-white bg-red-600 ">${items.priority}</div>
            </div> 
         </div>  
-    
     `
    document.getElementById("my_modal_5").showModal()
 }
 
+const loadTabissue = async (id) => {
+const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
+ console.log(url);
+  const res = await fetch(url)
+  const fulrespons = await res.json();
+  // displayTabIssue(data.data);
+  // console.log(data.data);
+  // const filterd = data.filter()
+  console.log(fulrespons.data);
+ 
+  if(id == "all"){
+    displayTabIssue(fulrespons.data)
+     totalIssue.innerText= fulrespons.data.length + " Issue"
+  }
+  else{
+    const filterd = fulrespons.data.filter((item) => item.status == id)
+    displayTabIssue(filterd)
+    totalIssue.innerText= filterd.length + " Issue"
+  }
+  
+}
+
+// loadTabissue()
+
+const  displayTabIssue = async (words) => {
+     console.log(words);
+}
