@@ -54,10 +54,10 @@ const displayIssue  = (cards) => {
       let img = ""
       if(card.status == "open"){
        textColor = "border-t-4 border-t-green-600" 
-       img =`/assets/Open-Status.png" class="w-3`
+      img = "/assets/Open-Status.png"
     } else if(card.status == "closed"){
       textColor = "border-t-4 border-t-[#AB5DF6]"
-      img =`/assets/Closed-Status.png" class="w-3`
+      img =`/assets/Closed-Status.png`
      
     }
     const cardDiv = document.createElement("div")
@@ -66,7 +66,7 @@ const displayIssue  = (cards) => {
     cardDiv.innerHTML=`
     <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
         <div class="flex justify-between">
-         <img src="${img}" >
+         <img src="${img}" class="w-3" >
          <div class="badge badge-soft badge-warning ">${card.priority}</div>
        </div>
            <h2 class="text-lg font-semibold" >${card.title}</h2>
