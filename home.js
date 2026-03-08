@@ -61,6 +61,9 @@ const displayIssue  = (cards) => {
      
     }
     const cardDiv = document.createElement("div")
+  const labelsHTML = card.labels
+  .map(label => `<div class="badge badge-soft badge-primary">${label}</div>`)
+  .join("");
     // console.log(card);
     cardDiv.className=`bg-gray-100 p-2 space-y-4 py-4 rounded-sm ${textColor}`
     cardDiv.innerHTML=`
@@ -72,8 +75,9 @@ const displayIssue  = (cards) => {
            <h2 class="text-lg font-semibold" >${card.title}</h2>
          <h3 class="text-xs">${card.description}</h3>
          <div>
-          <div class="badge badge-soft badge-primary">${card.labels}</div>
-         ${card.labels[1] ? ` <div class="badge badge-soft badge-warning">${card.labels[1]}</div>`: ''}
+        <div>
+        ${labelsHTML}
+        </div>
           <hr class="text-gray-300 mt-6">
           <div class="flex flex-row-reverse justify-between items-center">
            <div>
