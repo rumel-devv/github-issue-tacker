@@ -62,9 +62,8 @@ const displayIssue  = (cards) => {
     }
     const cardDiv = document.createElement("div")
   const labelsHTML = card.labels
-  .map(label => `<div class="badge badge-soft badge-primary">${label}</div>`)
+  .map(label => `<div class="badge badge-soft badge-primary ml-2">${label}</div>`)
   .join("");
-    // console.log(card);
     cardDiv.className=`bg-gray-100 p-2 space-y-4 py-4 rounded-sm ${textColor}`
     cardDiv.innerHTML=`
     <div onclick="loadCardDetails(${card.id})"  class="space-y-4">
@@ -98,19 +97,18 @@ const displayIssue  = (cards) => {
 }
 
 const loadCardDetails = async (id) => {
-  showLoading()
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
   const res = await fetch(url)
-  hideLoading()
   const data = await res.json();
   displayCardDetails(data.data);
 }
 
 
 const displayCardDetails = (items) => {
-  //  console.log(items);
+  const labelsHTML = items.labels
+  .map(label => `<div class="badge badge-soft badge-primary ml-2">${label}</div>`)
+  .join("");
     const detailsBox = document.getElementById("details-container")
-    // console.log(detailsBox);
     detailsBox.innerHTML=`
     <h3 class="text-lg font-bold">${items.title}</h3>
     <div class="flex gap-2">
@@ -118,9 +116,8 @@ const displayCardDetails = (items) => {
         <p>Owned by ${items.author}</p>
         <p class="text-xs mt-1.5 text-right ">${new Date(items.createdAt).toLocaleDateString("en-US")}</p>
     </div>
-    <div>
-        <div class="badge badge-soft badge-primary">${items.labels}</div>
-      ${items.labels[1] ? ` <div class="badge badge-soft badge-warning">${items.labels[1]}</div>`: ''}
+    <div  >
+     ${labelsHTML}
     </div>
     <p>${items.description}</p>
      <div class="bg-gray-100 shadow-xl p-4 flex justify-between rounded-lg">
@@ -143,12 +140,10 @@ const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues`
   const res = await fetch(url)
   hideLoading()
   const fulrespons = await res.json();
-  // console.log(fulrespons.data);
  
   if(id == "all"){
     displayTabIssue(fulrespons.data)
      totalIssue.innerText= fulrespons.data.length + " Issue"
-    //  displayCardDetails()
   }
   else{
     const filterd = fulrespons.data.filter((item) => item.status == id)
@@ -166,15 +161,12 @@ const  displayTabIssue = async (words) => {
 document.getElementById("search-btn").addEventListener('click',() => {
   const input = document.getElementById("input-field")
   const inputValu = input.value.trim().toLowerCase()
-  // console.log(inputValu);
   fetch (`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputValu}`)
  
   .then (res => res.json())
   .then (data => {
     const allData = data
-    // console.log(allData);
    displayIssue(allData.data)
-  //  loadTabissue()
   totalIssue.innerText = allData.data.length + " Issue"
   })
 })
